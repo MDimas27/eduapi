@@ -29,7 +29,7 @@ Cypress.Commands.add('createNewUser', () => {
     cy.fixture("UserApi").then((user) => {
         cy.request({
             method: "POST",
-            url: `${Cypress.env('apiUrl')}/public/v2/users`,
+            url: `${Cypress.env('apiUrl')}/public/v1/users`,
             headers: {
                 'Authorization': 'Bearer '+ token
             },
@@ -40,16 +40,16 @@ Cypress.Commands.add('createNewUser', () => {
                 "gender": user.gender,
                 "status": user.status
             }
-        }).then((response) => {
-            expect(response.status).eq(201)
-            // expect(response.body.data).to.have.property('name', user.name)
-            // expect(response.body.data).to.have.property('email', user.email)
-            // expect(response.body.data).to.have.property('gender', user.gender)
-            // expect(response.body.data).to.have.property('status', user.status)
-            expect(response.body.name).to.eq(user.name)
-            expect(response.body.email).to.eq(user.email)
-            expect(response.body.gender).to.eq(user.gender)
-            expect(response.body.status).to.eq(user.status)
+        }).then((Response) => {
+            expect(Response.status).eq(201)
+            expect(Response.body.data).to.have.property('name', user.name)
+            expect(Response.body.data).to.have.property('email', user.email)
+            expect(Response.body.data).to.have.property('gender', user.gender)
+            expect(Response.body.data).to.have.property('status', user.status)
+            // expect(response.body.name).to.eq(user.name)
+            // expect(response.body.email).to.eq(user.email)
+            // expect(response.body.gender).to.eq(user.gender)
+            // expect(response.body.status).to.eq(user.status)
         })
     })
 })
